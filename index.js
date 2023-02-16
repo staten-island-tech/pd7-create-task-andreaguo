@@ -3,12 +3,12 @@ import { cards } from "../array.js";
 let newCards = []
 
 function random(min, max) {
-    let min = Math.floor(min)
-    let max = Math.ceil(max);
-    return Math.floor(Math.random() * (max-min+1)) + min
+    let mino = Math.floor(min); //rounds down
+    let maxo = Math.ceil(max); //rounds up
+    return Math.floor(Math.random() * (maxo-mino+1)) + mino
 }
-cards.sort((a,b) => 0.5 - Math.random())
-
+// cards.sort((a,b) => 0.5 - Math.random())
+random(0,10);
 for (i = cards.length -1; i > 0; i--) {
     j = Math.floor(Math.random() * i)
     k = points[i]

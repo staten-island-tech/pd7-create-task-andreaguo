@@ -1,0 +1,44 @@
+html,
+body,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+.allUserCards,
+.allDealerCards {
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.h1,
+#hitBtn,
+#standBtn {
+    padding: 2rem;
+    font-size: 4rem;
+}
+
+#yesBtn,
+#hitBtn,
+#standBtn {
+    padding: 1rem;
+    margin: 3rem;
+    font-size: 2rem;
+}
+
+.userCard,
+.dealerCard {
+    font-size: 3rem;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    background-color: black;
+    color: white;
+    height: 30vh;
+    width: 10vw;
+    margin: 2rem;
+}

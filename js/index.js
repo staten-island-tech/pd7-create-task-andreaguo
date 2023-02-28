@@ -16,18 +16,23 @@ function random(min, max) {
   return Math.floor(Math.random() * (MAX-MIN+1)) + MIN
 }     // picks a random card (by index value)
 
+
 function pickCard(cardValues){
     let index = random(0, cards.length);
     let output = cards[index];
     console.log(output);
     createCard(index);
     cards.splice(index, 1);
+
+    
+
     cardValues.push(output.number);
     console.log(cardValues);
 
     const sum = cardValues.reduce((a, b) => a + b, 0);
     console.log(sum);
 
+    ace(output, sum);
     if (sum > 21) {
       console.log("loser!")
       document.getElementById("uResults").insertAdjacentHTML(
@@ -37,6 +42,22 @@ function pickCard(cardValues){
       deleteBtns();
     } else {
       
+    }
+}
+
+function ace(output, sum){
+const prev = (cardValues.reduce((a, b) => a + b, 0));
+    console.log(prev);  
+
+    if (output.name == "Ace" && prev <= 10) {
+        output.number = 11
+      }
+      else {
+    }
+    if (sum > 21 && output.name == "Ace") {
+        output.number = 1
+      } 
+      else {
     }
 }
 
@@ -71,6 +92,14 @@ function startGame(){
     <h1 class="h1">User's cards</h1>
     </div>`
   )
+    document.getElementById("dealer").insertAdjacentHTML(
+    "afterbegin",
+    `<div id="display">
+    <h1 class="h1">Dealer's cards</h1>
+    </div>`
+  )
+  pickCardD(cardValuesD);
+
 }
 
 function createCard(Index){
@@ -108,15 +137,7 @@ document.getElementById("hitBtn").addEventListener("click", function(){
 })
 document.getElementById("standBtn").addEventListener("click", function(){
   deleteBtns();
-  document.getElementById("dealer").insertAdjacentHTML(
-    "afterbegin",
-    `<div id="display">
-    <h1 class="h1">Dealer's cards</h1>
-    </div>`
-  )
-  const cardValuesD = [];
   pickCardD(cardValuesD);
-
 })
 }
 
@@ -125,7 +146,20 @@ function deleteBtns(){
   document.getElementById("standBtn").remove();
 }
 
+// function ace(index, sum){
+//   if (cards[index].name === "Ace") {
+//     if (sum < 10) {
+//       cards[index].number = 11
+//     } else {
+//       cards[index].number = 1
+//     }
+//   } else {
+//   }
+// }
+
 const cardValues = []; 
+const cardValuesD = [];
+
 document.getElementById("yesBtn").addEventListener("click", function(){
   startGame();
   document.getElementById("start").remove();
@@ -134,3 +168,7 @@ document.getElementById("yesBtn").addEventListener("click", function(){
   buttons();
 
 })
+
+while(sum <= 15){
+  pickCard(cardValuesD)
+}

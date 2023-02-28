@@ -140,7 +140,15 @@ document.getElementById("hitBtn").addEventListener("click", function(){
 document.getElementById("standBtn").addEventListener("click", function(){
   deleteBtns();
   pickCardD(cardValuesD);
+
 })
+}
+
+function dealerfunction (){
+  setTimeout(() => {
+    
+    pickCardD(cardValuesD);
+  }, 1000)  
 }
 
 function deleteBtns(){

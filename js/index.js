@@ -48,7 +48,9 @@ function pickCard(cardValues){
 function ace(output, sum){
 const prev = (cardValues.reduce((a, b) => a + b, 0));
     console.log(prev);  
-
+    for(let i = 0; i < cardValues.length; i++) {
+      cardValues[i]
+    }
     if (output.name == "Ace" && prev <= 10) {
         output.number = 11
       }

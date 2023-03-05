@@ -38,7 +38,24 @@ body,
     text-align: center;
     background-color: black;
     color: white;
-    height: 30vh;
+    height: 10vh;
     width: 10vw;
     margin: 2rem;
+}
+
+.container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    height: 100vh;
+    float: left;
+    padding: 20px;
+    border: 2px solid red;
+}  
+
+.img{
+    height: 25rem;
 }

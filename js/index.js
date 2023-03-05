@@ -28,16 +28,6 @@ async function getData(URL, arrA, arrB){
 }
 getData(URL);
 
-function playGame(deck, arrA){
-  document.getElementById("yesBtn").addEventListener("click", function(){
-  setTimeout(() => {
-    console.log(arrA, deck);
-    pickCard(arrA, deck);
-    buttons(deck);
-  }, 500);
-})
-}
-
 function shuffle(deck){
 for (let i = deck.length - 1; i > 0; i--) {
   let j = Math.floor(Math.random() * i)
@@ -159,7 +149,6 @@ function buttons(deck){
   })
 }
 
-
 function deleteBtns(){
   document.getElementById("hitBtn").remove();
   document.getElementById("standBtn").remove();
@@ -183,8 +172,6 @@ function results(){
         } else {
           console.log("you win")
         }
-          
-
       }
     }
   } 

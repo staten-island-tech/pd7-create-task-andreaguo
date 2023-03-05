@@ -1,8 +1,10 @@
 const URL = "http://deckofcardsapi.com/api/deck/new/draw/?count=52"
-const sumA = []
-const sumB = []
+const arrA = []
+const arrB = []
+let sumA = {}
+let sumB ={}
 
-async function getData(URL, sumA, sumB){
+async function getData(URL, arrA, arrB){
   try {
       const response = await fetch(URL);
       if (response.status < 200  || response.status >299) {
@@ -15,10 +17,10 @@ async function getData(URL, sumA, sumB){
           console.log(deck)
           document.getElementById("yesBtn").addEventListener("click", function(){
             document.getElementById("start").remove();
-            startGame(deck, sumA, sumB)
-            
+            startGame(deck, arrA, arrB)
+            buttons(deck)
           })
-          // playGame(total, deck, sumA);
+          // playGame(total, deck, arrA);
         }    
   } catch (error) {
       console.log(error);
@@ -26,11 +28,11 @@ async function getData(URL, sumA, sumB){
 }
 getData(URL);
 
-function playGame(deck, sumA){
+function playGame(deck, arrA){
   document.getElementById("yesBtn").addEventListener("click", function(){
   setTimeout(() => {
-    console.log(sumA, deck);
-    pickCard(sumA, deck);
+    console.log(arrA, deck);
+    pickCard(arrA, deck);
     buttons(deck);
   }, 500);
 })
@@ -51,7 +53,7 @@ function random(min, max) {
   return Math.floor(Math.random() * (MAX-MIN+1)) + MIN
 }     // picks a random card (by index value)
 
-function startGame(deck, sumA, sumB){
+function startGame(deck, arrA, arrB){
   document.getElementById("user").insertAdjacentHTML(
     "afterbegin",
     `<div id="display">
@@ -64,39 +66,21 @@ function startGame(deck, sumA, sumB){
     <h1 class="h1">Dealer's deck</h1>
     </div>`
   )
-  chooseCard(deck, sumA, "sumA")
-  chooseCard(deck, sumB, "sumB")
+  chooseCard(deck, arrA, "arrA")
+  chooseCard(deck, arrB, "arrB")
 
 }
 
-function chooseCard(deck, sum, string){
-    let i = random(0, deck.length);
-    let output = deck[i];
-    let value = parseInt(output.value)
-    console.log(output);
-    createCard(output, string);
-    deck.splice(i, 1);
-    find(value);
-    console.log(value)
-    const x = sum.push(value);
-    console.log(x);
-    const SUM = sum.reduce((a, b) => a + b, 0);
-    console.log(SUM);
-
-    // ace(output, sum);
-    // if (sum > 21) {
-    //   console.log("loser!")
-    //   document.getElementById("uResults").insertAdjacentHTML(
-    //     "afterbegin",
-    //     `<h1 class="h1">loser!</h1>`
-    //   )
-    //   deleteBtns();
-    // } else {
-      
-    // }
+function chooseCard(deck, arr, string){
+    let i = random(0, deck.length); //good
+    let output = deck[i]; //good
+    console.log(output); //good
+    createCard(output, string, arr); //good
+    deck.splice(i, 1); //good
+    find(output.value, string)
 }
 
-function find(a){
+function find(a, arrArr){
   if (a === "ACE" || a ==="JACK") {
     a = 11
   } else {
@@ -106,50 +90,30 @@ function find(a){
       if (a === "KING") {
         a = 13
       } else {
-        a = a
+        let x = parseInt(a) 
+        a = x     
       }
     }  
   }
+  console.log(a)
+  if (arrArr === "arrB") {
+    arrB.push(a);
+    console.log(arrB)
+    sumB = arrB.reduce((a, b) => a + b, 0);
+    console.log(sumB);
+  } else {
+    arrA.push(a)
+    console.log(arrA)
+    sumA = arrA.reduce((a, b) => a + b, 0);
+    console.log(sumA);
+  }
 }
 
-const arr = []
-const newarr = arr.push("hello", 2, 30, 4, 4 ,4)
-console.log(newarr)
-// function ace(output, sum){
-// const prev = (sumA.reduce((a, b) => a + b, 0));
-//     console.log(prev);  
-//     for(let i = 0; i < sumA.length; i++) {
-//       sumA[i]
-//     }
-//     if (output.name == "Ace" && prev <= 10) {
-//         output.number = 11
-//       }
-//       else {
-//     }
-//     if (sum > 21 && output.name == "Ace") {
-//         output.number = 1
-//       } 
-//       else {
-//     }
-// }
-
-
-  // if (sum > 21) {
-  //   console.log("you win!")
-  //   document.getElementById("uResults").insertAdjacentHTML(
-  //     "afterbegin",
-  //     `<h1 class="h1">you win!</h1>`
-  //   )
-  //   deleteBtns();
-  // } else {
-    
-  // }
 
 
 
-
-function createCard(output, sum){
-  if (sum == "sumB") {
+function createCard(output, arr){
+  if (arr == "arrB") {
     document.getElementById("dealer").insertAdjacentHTML(
       "beforeend",
       `<div class="allUserdeck">
@@ -158,7 +122,7 @@ function createCard(output, sum){
       </div>
       </div>`
   )} else {
-        document.getElementById("display").insertAdjacentHTML(
+      document.getElementById("display").insertAdjacentHTML(
       "beforeend",
       `<div class="allUserdeck">
       <div class="userCard">
@@ -174,37 +138,55 @@ function buttons(deck){
     `<button id="hitBtn">hit</button>
     <button id="standBtn">stand</button>`
   )
-document.getElementById("hitBtn").addEventListener("click", function(){
-  let n = deck.length
-  console.log(n)
-  pickCard(cardValues)
-})
-document.getElementById("standBtn").addEventListener("click", function(){
-  deleteBtns();
-  pickCardD(sumB);   
-
-})
+ 
+  document.getElementById("hitBtn").addEventListener("click", function(){
+    chooseCard(deck, arrA, "arrA")
+     if (sumA > 21) {
+      console.log("you lose")
+      deleteBtns();
+    }
+  })
+  document.getElementById("standBtn").addEventListener("click", function(){
+    console.log(sumB)
+    chooseCard(deck, arrB, "arrB")
+    if (sumB < 21) {
+      while (sumB < 15){
+          console.log("time")
+          chooseCard(deck, arrB, "arrB")        
+    }
+  }
+  results();
+  })
 }
 
-function dealerfunction (){
-  setTimeout(() => {
-    
-    pickCardD(sumB);
-  }, 1000)  
-}
 
 function deleteBtns(){
   document.getElementById("hitBtn").remove();
   document.getElementById("standBtn").remove();
 }
 
-// function ace(index, sum){
-//   if (deck[index].name === "Ace") {
-//     if (sum < 10) {
-//       deck[index].number = 11
-//     } else {
-//       deck[index].number = 1
-//     }
-//   } else {
-//   }
-// }
+function results(){
+  if (sumA == 21 && sumB == 21) {
+  console.log("tie")
+} else {
+  if (sumA > 21 && sumB > 21) {
+    console.log("tie")
+  } else {
+    if (sumA <= 21 && sumB > 21 ) {
+      console.log("you win")
+    } else {
+      if (21 - sumA == 21 - sumB) {
+        console.log("tie")
+      } else {
+        if (21 - sumA > 21 - sumB) {
+          console.log("you lose")
+        } else {
+          console.log("you win")
+        }
+          
+
+      }
+    }
+  } 
+} deleteBtns();
+}

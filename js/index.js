@@ -57,6 +57,7 @@ function startGame(deck, arrA, arrB){
     </div>`
   )
   chooseCard(deck, arrA, "arrA")
+  chooseCard(deck, arrA, "arrA")
   chooseCard(deck, arrB, "arrB")
 
 }
@@ -71,21 +72,17 @@ function chooseCard(deck, arr, string){
 }
 
 function find(a, arrArr){
-  if (a === "ACE" || a ==="JACK") {
+  if (a === "ACE" ) {
     a = 11
   } else {
-    if (a === "QUEEN") {
-      a = 12
+    if (a === "QUEEN" || a ==="JACK" || a === "KING") {
+      a = 10
     } else {
-      if (a === "KING") {
-        a = 13
-      } else {
         let x = parseInt(a) 
         a = x     
       }
-    }  
-  }
-  console.log(a)
+    }    
+    console.log(a)
   if (arrArr === "arrB") {
     arrB.push(a);
     console.log(arrB)
@@ -98,10 +95,6 @@ function find(a, arrArr){
     console.log(sumA);
   }
 }
-
-
-
-
 function createCard(output, arr){
   if (arr == "arrB") {
     document.getElementById("dealer").insertAdjacentHTML(
@@ -140,7 +133,7 @@ function buttons(deck){
     console.log(sumB)
     chooseCard(deck, arrB, "arrB")
     if (sumB < 21) {
-      while (sumB < 15){
+      while (sumB < 18){
           console.log("time")
           chooseCard(deck, arrB, "arrB")        
     }

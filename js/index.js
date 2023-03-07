@@ -4,7 +4,7 @@ const arrB = []
 let sumA = {}
 let sumB ={}
 
-async function getData(URL, arrA, arrB){
+async function getData(URL){
   try {
       const response = await fetch(URL);
       if (response.status < 200  || response.status >299) {
